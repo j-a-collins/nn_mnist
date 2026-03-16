@@ -1,5 +1,5 @@
 """
-main train entry point
+main train entry point for the nn
 """
 
 # third
@@ -24,25 +24,8 @@ def iterate_minibatches(
     rng: np.random.Generator,
     shuffle: bool = True,
 ):
-    """Yield mini-batches.
-
-    Parameters
-    ----------
-    x : np.ndarray
-        Input array of shape ``(n_samples, n_features)``.
-    y : np.ndarray
-        Label array of shape ``(n_samples,)``.
-    batch_size : int
-        Batch size.
-    rng : np.random.Generator
-        Random number generator.
-    shuffle : bool, default=True
-        Whether to shuffle samples before batching.
-
-    Yields
-    ------
-    tuple[np.ndarray, np.ndarray]
-        Mini-batch inputs and labels.
+    """
+    yield mini-batches
     """
     n = x.shape[0]
     idx = np.arange(n)
@@ -55,19 +38,8 @@ def iterate_minibatches(
 
 
 def accuracy(logits: np.ndarray, y: np.ndarray) -> float:
-    """Compute classification accuracy.
-
-    Parameters
-    ----------
-    logits : np.ndarray
-        Logits of shape ``(n_samples, n_classes)``.
-    y : np.ndarray
-        Integer labels of shape ``(n_samples,)``.
-
-    Returns
-    -------
-    float
-        Mean accuracy.
+    """
+    compute classification accuracy.
     """
     return float(np.mean(np.argmax(logits, axis=1) == y))
 
@@ -80,22 +52,8 @@ def plot_metric(
     ylabel: str,
     path: str | Path,
 ) -> None:
-    """Plot a train/test metric curve.
-
-    Parameters
-    ----------
-    values_a : list[float]
-        First metric series.
-    values_b : list[float]
-        Second metric series.
-    label_a : str
-        Legend label for the first series.
-    label_b : str
-        Legend label for the second series.
-    ylabel : str
-        Y-axis label.
-    path : str | Path
-        Output image path.
+    """
+    plotting function for the train/test loss curve.
     """
     epochs = np.arange(1, len(values_a) + 1)
 
@@ -111,7 +69,9 @@ def plot_metric(
 
 
 def main() -> None:
-    """Train an MLP on MNIST and save metrics and weights."""
+    """
+    train an MLP on MNIST and save metrics and weights.
+    """
     rng = np.random.default_rng(0)
 
     x_train, y_train, x_test, y_test = load_mnist()
